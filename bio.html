@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mustafa Serour — Professional Bio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root { --dark: #111820; --cream: #F8F4EE; --gold: #B8860B; --gold-light: #D4A017; --steel: #2C3E50; --muted: #7F8C8D; --border: #E0D8CC; --white: #FFFFFF; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--dark); font-family: 'Lato', sans-serif; font-weight: 300; color: var(--cream); line-height: 1.7; min-height: 100vh; }
+  .page { max-width: 860px; margin: 0 auto; padding: 80px 40px 100px; }
+  .top-label { font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; display: flex; align-items: center; gap: 14px; opacity: 0; animation: fadeIn 0.6s 0.1s ease forwards; }
+  .top-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold), transparent); }
+  .name-block { margin-bottom: 10px; opacity: 0; animation: fadeIn 0.7s 0.2s ease forwards; }
+  .name-block h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 400; line-height: 1; letter-spacing: -0.01em; color: var(--white); }
+  .name-block h1 em { font-style: italic; color: var(--gold-light); }
+  .name-subtitle { margin-top: 16px; font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0; animation: fadeIn 0.7s 0.35s ease forwards; }
+  .divider { width: 60px; height: 2px; background: var(--gold); margin: 40px 0; opacity: 0; animation: fadeIn 0.6s 0.45s ease forwards; }
+  .bio-body { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; opacity: 0; animation: fadeIn 0.8s 0.55s ease forwards; }
+  .bio-text p { font-size: 17px; font-weight: 300; line-height: 1.9; color: rgba(248,244,238,0.88); margin-bottom: 22px; }
+  .bio-text p:last-child { margin-bottom: 0; }
+  .bio-text strong { font-weight: 700; color: var(--white); }
+  .bio-text .gold { color: var(--gold-light); font-weight: 400; }
+  .bio-sidebar { display: flex; flex-direction: column; gap: 2px; }
+  .sidebar-block { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 20px 22px; transition: background 0.2s, border-color 0.2s; }
+  .sidebar-block:hover { background: rgba(184,134,11,0.08); border-color: rgba(184,134,11,0.3); }
+  .sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .sidebar-value { font-size: 14px; font-weight: 400; color: rgba(248,244,238,0.85); line-height: 1.5; }
+  .sidebar-value a { color: rgba(248,244,238,0.85); text-decoration: none; border-bottom: 1px solid rgba(184,134,11,0.4); transition: color 0.2s, border-color 0.2s; }
+  .sidebar-value a:hover { color: var(--gold-light); border-color: var(--gold-light); }
+  .pull-quote { margin-top: 60px; padding: 40px 50px; border-left: 3px solid var(--gold); background: rgba(184,134,11,0.06); opacity: 0; animation: fadeIn 0.8s 0.75s ease forwards; }
+  .pull-quote blockquote { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.6rem); color: rgba(248,244,238,0.9); line-height: 1.6; }
+  .pull-quote cite { display: block; margin-top: 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-style: normal; }
+  .versions { margin-top: 60px; opacity: 0; animation: fadeIn 0.8s 0.9s ease forwards; }
+  .versions-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
+  .versions-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+  .version-tabs { display: flex; gap: 2px; margin-bottom: 24px; flex-wrap: wrap; }
+  .vtab { padding: 10px 22px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--muted); cursor: pointer; font-family: 'Lato', sans-serif; transition: all 0.2s; }
+  .vtab.active, .vtab:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+  .version-content { display: none; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); padding: 28px 32px; font-size: 15px; font-weight: 300; color: rgba(248,244,238,0.85); line-height: 1.8; position: relative; }
+  .version-content.active { display: block; }
+  .copy-btn { position: absolute; top: 16px; right: 16px; padding: 6px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: transparent; border: 1px solid rgba(184,134,11,0.4); color: var(--gold); cursor: pointer; font-family: 'Lato', sans-serif; transition: all 0.2s; }
+  .copy-btn:hover { background: var(--gold); color: var(--dark); }
+  .bio-footer { margin-top: 80px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; opacity: 0; animation: fadeIn 0.6s 1s ease forwards; }
+  .footer-contact { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-contact a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-contact a:hover { color: var(--gold-light); }
+  .footer-note { font-size: 11px; color: rgba(127,140,141,0.6); letter-spacing: 0.06em; }
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-decoration: none; margin-bottom: 40px; opacity: 0; animation: fadeIn 0.6s 0.05s ease forwards; transition: color 0.2s; }
+  .back-link:hover { color: var(--gold-light); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 680px) { .page { padding: 50px 24px 80px; } .bio-body { grid-template-columns: 1fr; gap: 40px; } .pull-quote { padding: 28px 24px; } .bio-footer { flex-direction: column; align-items: flex-start; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="https://mustafa-serour.github.io">← Back to Portfolio</a>
+  <div class="top-label">Professional Bio</div>
+  <div class="name-block"><h1>Mustafa <em>Serour</em></h1></div>
+  <div class="name-subtitle">Product Owner · Business Analyst · MBA Candidate</div>
+  <div class="divider"></div>
+  <div class="bio-body">
+    <div class="bio-text">
+      <p>Mustafa Serour is a <strong>Product Owner and Business Analyst</strong> with over a decade of professional experience spanning regulated financial services, fintech, HR tech, and healthcare-adjacent platforms. He brings a rare combination of deep domain expertise and structured product thinking — shaped by <span class="gold">7 years in banking</span> and sharpened through <span class="gold">3 years of end-to-end SaaS product delivery</span>.</p>
+      <p>Currently serving as Product Owner at <strong>Talento</strong>, a B2B HR tech SaaS platform serving the MENA region, Mustafa owns the full product lifecycle across three portals — Admin, Employer, and Employee. He has architected and shipped an EOR employee lifecycle system, a multi-tier invoicing engine with split-salary logic, and a role-based access control framework covering 10+ roles — all delivered from stakeholder interviews through to developer-ready specifications.</p>
+      <p>Prior to Talento, Mustafa worked as a Business Analyst at <strong>Tarmeez Capital</strong>, a MENA fintech investment platform, where structured gap analysis and process mapping contributed to a 15% operational efficiency improvement. Earlier, as Product Owner at <strong>Dawafast Co</strong>, he led four consecutive product releases on schedule — driving a measured 20% improvement in customer satisfaction.</p>
+      <p>Before transitioning into product, Mustafa spent <strong>seven years at QNB Al-Ahli Bank</strong> as a Relationship Manager — building the client management, financial analysis, and regulatory compliance foundations that now underpin his work in fintech and HR tech.</p>
+      <p>Mustafa holds a <strong>PSPO certification</strong> from Scrum.org and is currently completing an <strong>MBA in Strategic Management and Innovation</strong> at the German University in Cairo. He is fluent in Arabic and English, with basic Chinese, and is open to Product Owner, Product Manager, and Business Analyst roles.</p>
+    </div>
+    <div class="bio-sidebar">
+      <div class="sidebar-block"><div class="sidebar-label">Current Role</div><div class="sidebar-value">Product Owner<br>Talento — HR Tech SaaS</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Experience</div><div class="sidebar-value">10+ Years Total<br>3+ Years in Product</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Industries</div><div class="sidebar-value">HR Tech · Fintech<br>Healthcare · Banking</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Certification</div><div class="sidebar-value">PSPO · Scrum.org</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Education</div><div class="sidebar-value">MBA Candidate — GUC<br>B.Com Accounting — ASU</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Location</div><div class="sidebar-value">Cairo, Egypt</div></div>
+      <div class="sidebar-block"><div class="sidebar-label">Contact</div><div class="sidebar-value"><a href="mailto:Mostafaserour5@gmail.com">Mostafaserour5@gmail.com</a><br><a href="https://linkedin.com/in/mostafa-serour-09a348231" target="_blank">LinkedIn Profile</a></div></div>
+    </div>
+  </div>
+  <div class="pull-quote">
+    <blockquote>"I enjoy being the person who bridges the gap between business and technology — translating complex operational needs into structured, developer-ready solutions that deliver real value to users."</blockquote>
+    <cite>— Mustafa Serour</cite>
+  </div>
+  <div class="versions">
+    <div class="versions-label">Ready-to-paste versions</div>
+    <div class="version-tabs">
+      <button class="vtab active" onclick="showVersion('long', this)">Full Bio</button>
+      <button class="vtab" onclick="showVersion('medium', this)">3-Line (LinkedIn)</button>
+      <button class="vtab" onclick="showVersion('short', this)">1-Line (Job Apps)</button>
+    </div>
+    <div id="version-long" class="version-content active">
+      <button class="copy-btn" onclick="copyVersion('long')">Copy</button>
+      Mustafa Serour is a Product Owner and Business Analyst with 10+ years of experience across banking, fintech, HR tech, and healthcare platforms. Currently Product Owner at Talento — a B2B HR SaaS platform in MENA — he has delivered an EOR employee lifecycle system, multi-tier invoicing engine, and RBAC framework across three portals. Previously a Business Analyst at Tarmeez Capital and Product Owner at Dawafast Co, Mustafa brings 7 years of prior financial services experience from QNB Al-Ahli Bank. PSPO-certified and MBA candidate at the German University in Cairo.
+    </div>
+    <div id="version-medium" class="version-content">
+      <button class="copy-btn" onclick="copyVersion('medium')">Copy</button>
+      Product Owner & Business Analyst | 10+ years across HR tech, fintech & banking | PSPO certified | Currently building multi-portal SaaS at Talento | MBA Candidate — German University in Cairo.
+    </div>
+    <div id="version-short" class="version-content">
+      <button class="copy-btn" onclick="copyVersion('short')">Copy</button>
+      PSPO-certified Product Owner with 10+ years across SaaS, fintech, and HR tech — delivering end-to-end product solutions in MENA.
+    </div>
+  </div>
+  <div class="bio-footer">
+    <div class="footer-contact">
+      <a href="mailto:Mostafaserour5@gmail.com">Mostafaserour5@gmail.com</a>
+      <a href="tel:+201060034359">+20 106 003 4359</a>
+      <a href="https://linkedin.com/in/mostafa-serour-09a348231" target="_blank">LinkedIn</a>
+    </div>
+    <div class="footer-note">Cairo, Egypt · Available for new opportunities</div>
+  </div>
+</div>
+<script>
+  function showVersion(id, btn) {
+    document.querySelectorAll('.version-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.vtab').forEach(el => el.classList.remove('active'));
+    document.getElementById('version-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function copyVersion(id) {
+    const text = document.getElementById('version-' + id).innerText.replace('Copy', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('#version-' + id + ' .copy-btn');
+      btn.innerText = 'Copied!';
+      setTimeout(() => btn.innerText = 'Copy', 2000);
+    });
+  }
+</script>
+</body>
+</html>
