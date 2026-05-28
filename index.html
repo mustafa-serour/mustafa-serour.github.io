@@ -1,1 +1,241 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mustafa Serour — Product Owner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0E0E0E;
+    --paper: #F5F1EB;
+    --accent: #C8522A;
+    --accent2: #1A3A4A;
+    --muted: #7A7060;
+    --border: #DDD8CE;
+    --card-bg: #FDFAF6;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 400; line-height: 1.6; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.5; }
+  header { position: relative; padding: 80px 6vw 60px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px; animation: fadeUp 0.8s ease both; }
+  .name-block { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 7vw, 6rem); line-height: 1; letter-spacing: -0.02em; color: var(--ink); }
+  .name-block em { font-style: italic; color: var(--accent); }
+  .title-line { margin-top: 16px; font-size: 13px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+  .title-line span { color: var(--accent); }
+  .header-right { text-align: right; font-size: 13px; color: var(--muted); line-height: 2; }
+  .header-right a { color: var(--accent2); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--accent2); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+  .header-right a:hover { color: var(--accent); border-color: var(--accent); }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(245,241,235,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0 6vw; display: flex; gap: 0; }
+  nav a { display: inline-block; padding: 16px 20px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  nav a:hover { color: var(--accent); border-color: var(--accent); }
+  main { padding: 0 6vw 100px; }
+  section { padding-top: 80px; }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--ink); line-height: 1.1; }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .summary-text { font-size: 17px; line-height: 1.8; color: #3A3530; }
+  .summary-text strong { color: var(--accent); font-weight: 600; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .stat-cell { background: var(--card-bg); padding: 24px 20px; text-align: center; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+  .exp-list { display: flex; flex-direction: column; gap: 2px; }
+  .exp-card { background: var(--card-bg); border: 1px solid var(--border); padding: 32px 36px; position: relative; transition: transform 0.2s, box-shadow 0.2s; cursor: default; }
+  .exp-card:hover { transform: translateX(4px); box-shadow: -4px 0 0 var(--accent); }
+  .exp-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+  .exp-company { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ink); }
+  .exp-period { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; padding-top: 4px; }
+  .exp-role { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .exp-domain { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; background: var(--accent2); color: #fff; padding: 3px 10px; border-radius: 2px; margin-bottom: 20px; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .exp-bullets li { font-size: 14px; color: #3A3530; line-height: 1.6; padding-left: 20px; position: relative; }
+  .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 12px; }
+  .ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; background: var(--border); border: 1px solid var(--border); }
+  .ach-card { background: var(--card-bg); padding: 28px 24px; transition: background 0.2s; }
+  .ach-card:hover { background: #F0EBE3; }
+  .ach-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .ach-metric { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+  .ach-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+  .skill-group { background: var(--card-bg); border: 1px solid var(--border); padding: 24px; }
+  .skill-group-title { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag { font-size: 12px; font-weight: 500; background: var(--paper); border: 1px solid var(--border); color: var(--ink); padding: 4px 10px; border-radius: 2px; transition: background 0.15s, border-color 0.15s; }
+  .skill-tag:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .edu-card { background: var(--card-bg); border: 1px solid var(--border); padding: 28px; }
+  .edu-degree { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--ink); margin-bottom: 4px; }
+  .edu-school { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+  .edu-year { font-size: 12px; color: var(--muted); }
+  .cert-list { display: flex; flex-direction: column; gap: 10px; }
+  .cert-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #3A3530; padding: 12px 16px; background: var(--card-bg); border: 1px solid var(--border); transition: border-color 0.2s; }
+  .cert-item:hover { border-color: var(--accent); }
+  .cert-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .contact-section { margin-top: 80px; padding: 60px; background: var(--accent2); color: #fff; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; }
+  .contact-heading { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.1; }
+  .contact-heading em { font-style: italic; color: #F0A87A; }
+  .contact-links { display: flex; flex-direction: column; gap: 10px; }
+  .contact-link { display: flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.8); text-decoration: none; transition: color 0.2s; }
+  .contact-link:hover { color: #fff; }
+  .contact-link-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 14px; border-radius: 2px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 700px) { header { grid-template-columns: 1fr; } .header-right { text-align: left; } .summary-grid { grid-template-columns: 1fr; } .edu-grid { grid-template-columns: 1fr; } .contact-section { flex-direction: column; } nav a { padding: 14px 12px; font-size: 11px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <div class="name-block">Mustafa <em>Serour</em></div>
+    <div class="title-line"><span>Product Owner</span> · Business Analyst · MBA Candidate</div>
+  </div>
+  <div class="header-right">
+    <div>Cairo, Egypt · ElShorouk City</div>
+    <div>+20 106 003 4359</div>
+    <div><a href="mailto:Mostafaserour5@gmail.com">Mostafaserour5@gmail.com</a></div>
+    <div><a href="https://linkedin.com/in/mostafa-serour-09a348231" target="_blank">linkedin.com/in/mostafa-serour</a></div>
+  </div>
+</header>
+<nav>
+  <a href="#summary">Summary</a>
+  <a href="#experience">Experience</a>
+  <a href="#achievements">Achievements</a>
+  <a href="#skills">Skills</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</nav>
+<main>
+  <section id="summary">
+    <div class="section-header">
+      <div><div class="section-label">Who I Am</div><div class="section-title">Professional Summary</div></div>
+      <div class="section-line"></div>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-text">
+        Product Owner and Business Analyst with <strong>3+ years</strong> owning end-to-end product delivery across multi-portal SaaS platforms, and <strong>7+ years</strong> in regulated financial environments at QNB Al-Ahli.<br><br>
+        Specialises in translating complex operational requirements into structured FRDs and user stories — with a proven track record across <strong>HR tech, fintech, and healthcare-adjacent</strong> platforms. Built and delivered an EOR employee lifecycle system, invoicing engine, and a role-based access control framework covering 10+ roles across three portals.<br><br>
+        <strong>PSPO-certified.</strong> MBA candidate at the German University in Cairo. Open to Product Owner, Product Manager, and Business Analyst roles.
+      </div>
+      <div class="stats-grid">
+        <div class="stat-cell"><div class="stat-num">10+</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat-cell"><div class="stat-num">3</div><div class="stat-label">Industries</div></div>
+        <div class="stat-cell"><div class="stat-num">3</div><div class="stat-label">SaaS Platforms</div></div>
+        <div class="stat-cell"><div class="stat-num">PSPO</div><div class="stat-label">Certified</div></div>
+      </div>
+    </div>
+  </section>
+  <section id="experience">
+    <div class="section-header">
+      <div><div class="section-label">Career</div><div class="section-title">Experience</div></div>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-list">
+      <div class="exp-card">
+        <div class="exp-top"><div><div class="exp-company">Talento</div><div class="exp-role">Product Owner</div></div><div class="exp-period">Apr 2025 – Present</div></div>
+        <div class="exp-domain">HR Tech · SaaS · EOR · MENA</div>
+        <ul class="exp-bullets">
+          <li>Owned the full product backlog across three portals (Admin · Employer · Employee) — 100+ item JIRA backlog across 5 concurrent modules.</li>
+          <li>Designed and shipped an RBAC system covering 10+ roles from Super Admin through to Employees.</li>
+          <li>Architected the EOR employee lifecycle module: team management, profiles, contracts, bonuses, deductions, termination, and resignation.</li>
+          <li>Defined a multi-tier invoicing engine with split-salary logic, addon support, credit notes, and full audit traceability.</li>
+          <li>Built a Notification Centre supporting trigger-based delivery via email, in-app, and WhatsApp/SMS.</li>
+          <li>Facilitated all Agile ceremonies for a cross-functional team of 8+ across product, engineering, and design.</li>
+          <li>Drove MVP go-live across payroll, contracts, invoicing, and employee profile modules.</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-top"><div><div class="exp-company">Tarmeez Capital</div><div class="exp-role">Business Analyst</div></div><div class="exp-period">Sep 2024 – Mar 2025</div></div>
+        <div class="exp-domain">Fintech · Investment · MENA</div>
+        <ul class="exp-bullets">
+          <li>Conducted structured requirements gathering with 10+ stakeholders — outputs translated directly into BRDs and functional specs used by engineering.</li>
+          <li>Performed gap analysis and process mapping that contributed to a <strong>15% operational efficiency improvement</strong>.</li>
+          <li>Researched fintech market trends and regulatory developments across MENA to support roadmap decisions.</li>
+          <li>Collaborated via JIRA and Trello ensuring acceptance criteria were met before sprint sign-off.</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-top"><div><div class="exp-company">Dawafast Co</div><div class="exp-role">Product Owner</div></div><div class="exp-period">Mar 2023 – Sep 2024</div></div>
+        <div class="exp-domain">Healthcare · Logistics · SaaS</div>
+        <ul class="exp-bullets">
+          <li>Defined and prioritised product features against business KPIs and user research across 3 release cycles.</li>
+          <li>Delivered 4 major product releases on schedule — contributing to a <strong>20% improvement in customer satisfaction scores</strong>.</li>
+          <li>Ran all Agile ceremonies and maintained the product backlog with user stories, epics, and acceptance criteria.</li>
+          <li>Proactively identified and mitigated delivery risks, maintaining sprint velocity across engineering, design, and operations.</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-top"><div><div class="exp-company">QNB Al-Ahli Bank</div><div class="exp-role">Relationship Manager</div></div><div class="exp-period">Jul 2015 – Feb 2023</div></div>
+        <div class="exp-domain">Banking · Finance · Compliance</div>
+        <ul class="exp-bullets">
+          <li>Managed and grew a diversified client portfolio across corporate and retail segments — consistently meeting profitability and retention targets.</li>
+          <li>Acted as primary financial consultant advising on banking products, structuring solutions, and managing complex escalations.</li>
+          <li>Ensured full compliance with AML regulations and risk management policies across 7+ years.</li>
+          <li>Built the stakeholder management, negotiation, and structured communication foundations that now underpin product work.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section id="achievements">
+    <div class="section-header">
+      <div><div class="section-label">Impact</div><div class="section-title">Key Achievements</div></div>
+      <div class="section-line"></div>
+    </div>
+    <div class="ach-grid">
+      <div class="ach-card"><div class="ach-icon">🏗️</div><div class="ach-metric">RBAC</div><div class="ach-desc">Designed end-to-end role-based access control framework covering 10+ roles across three portals — from stakeholder interviews to developer-ready specs.</div></div>
+      <div class="ach-card"><div class="ach-icon">🧾</div><div class="ach-metric">Invoicing Engine</div><div class="ach-desc">Architected multi-tier invoicing with split-salary logic, credit note workflow, and full audit trail handling complex mid-cycle renewal scenarios.</div></div>
+      <div class="ach-card"><div class="ach-icon">📈</div><div class="ach-metric">+20%</div><div class="ach-desc">Customer satisfaction improvement at Dawafast Co across 4 product releases, measured via post-release user feedback.</div></div>
+      <div class="ach-card"><div class="ach-icon">⚡</div><div class="ach-metric">+15%</div><div class="ach-desc">Operational efficiency gain at Tarmeez Capital through structured gap analysis and process mapping across core platform workflows.</div></div>
+      <div class="ach-card"><div class="ach-icon">🚀</div><div class="ach-metric">MVP</div><div class="ach-desc">Drove go-live for Talento's multi-portal HR SaaS platform — coordinating UAT and release sign-off across engineering, design, finance, and HR teams.</div></div>
+      <div class="ach-card"><div class="ach-icon">🏦</div><div class="ach-metric">7 Yrs</div><div class="ach-desc">Track record in regulated financial operations at QNB Al-Ahli — the compliance discipline that now underpins fintech and HR tech product work.</div></div>
+    </div>
+  </section>
+  <section id="skills">
+    <div class="section-header">
+      <div><div class="section-label">Toolkit</div><div class="section-title">Skills & Tools</div></div>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group"><div class="skill-group-title">Product Ownership</div><div class="skill-tags"><span class="skill-tag">Roadmap</span><span class="skill-tag">Backlog Management</span><span class="skill-tag">User Stories</span><span class="skill-tag">Epics</span><span class="skill-tag">Acceptance Criteria</span><span class="skill-tag">MVP Scoping</span><span class="skill-tag">Definition of Done</span></div></div>
+      <div class="skill-group"><div class="skill-group-title">Business Analysis</div><div class="skill-tags"><span class="skill-tag">Requirements Gathering</span><span class="skill-tag">Gap Analysis</span><span class="skill-tag">Process Mapping</span><span class="skill-tag">FRD</span><span class="skill-tag">BRD</span><span class="skill-tag">Use Cases</span><span class="skill-tag">UAT Coordination</span></div></div>
+      <div class="skill-group"><div class="skill-group-title">Agile / Scrum</div><div class="skill-tags"><span class="skill-tag">Sprint Planning</span><span class="skill-tag">Backlog Refinement</span><span class="skill-tag">Sprint Reviews</span><span class="skill-tag">Retrospectives</span><span class="skill-tag">Velocity Tracking</span><span class="skill-tag">PSPO Certified</span></div></div>
+      <div class="skill-group"><div class="skill-group-title">Domain Knowledge</div><div class="skill-tags"><span class="skill-tag">HR Tech</span><span class="skill-tag">EOR Platforms</span><span class="skill-tag">SaaS</span><span class="skill-tag">Fintech</span><span class="skill-tag">Payroll & Contracts</span><span class="skill-tag">RBAC</span><span class="skill-tag">AML & Compliance</span></div></div>
+      <div class="skill-group"><div class="skill-group-title">Tools</div><div class="skill-tags"><span class="skill-tag">JIRA</span><span class="skill-tag">Confluence</span><span class="skill-tag">Trello</span><span class="skill-tag">Notion</span><span class="skill-tag">Figma (review)</span><span class="skill-tag">Miro</span><span class="skill-tag">MS Office</span></div></div>
+      <div class="skill-group"><div class="skill-group-title">Languages</div><div class="skill-tags"><span class="skill-tag">Arabic — Native</span><span class="skill-tag">English — Fluent</span><span class="skill-tag">Chinese — Basic</span></div></div>
+    </div>
+  </section>
+  <section id="education">
+    <div class="section-header">
+      <div><div class="section-label">Learning</div><div class="section-title">Education & Certifications</div></div>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div>
+        <div class="edu-card" style="margin-bottom:20px;"><div class="edu-degree">MBA — Strategic Management, HR & Innovation</div><div class="edu-school">German University in Cairo (GUC)</div><div class="edu-year">2024 – Present</div></div>
+        <div class="edu-card"><div class="edu-degree">Bachelor of Commerce — Accounting</div><div class="edu-school">Ain Shams University</div><div class="edu-year">2009 – 2013</div></div>
+      </div>
+      <div class="cert-list">
+        <div class="cert-item"><div class="cert-dot"></div>Professional Scrum Product Owner (PSPO) · Scrum.org</div>
+        <div class="cert-item"><div class="cert-dot"></div>Product Management · Udemy</div>
+        <div class="cert-item"><div class="cert-dot"></div>Business Process Outsourcing Skills · ITI / EDU Egypt</div>
+        <div class="cert-item"><div class="cert-dot"></div>Compliance & Anti-Money Laundering (AML) · QNB Al-Ahli</div>
+        <div class="cert-item"><div class="cert-dot"></div>Project Leadership · LinkedIn Learning</div>
+        <div class="cert-item"><div class="cert-dot"></div>Corporate Finance Foundations · LinkedIn Learning</div>
+        <div class="cert-item"><div class="cert-dot"></div>Key Account Management · LinkedIn Learning</div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="contact-section" id="contact">
+  <div><div class="contact-heading">Let's build<br>something <em>impactful.</em></div></div>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:Mostafaserour5@gmail.com"><div class="contact-link-icon">✉</div>Mostafaserour5@gmail.com</a>
+    <a class="contact-link" href="tel:+201060034359"><div class="contact-link-icon">☎</div>+20 106 003 4359</a>
+    <a class="contact-link" href="https://linkedin.com/in/mostafa-serour-09a348231" target="_blank"><div class="contact-link-icon">in</div>linkedin.com/in/mostafa-serour</a>
+    <a class="contact-link" href="#"><div class="contact-link-icon">📍</div>ElShorouk City, Cairo — Egypt</a>
+  </div>
+</div>
+</body>
+</html>
